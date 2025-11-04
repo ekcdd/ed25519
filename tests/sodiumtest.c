@@ -62,7 +62,7 @@ int test_orlp_self_compatibility() {
     test_count++;
     unsigned char seed[32];
     unsigned char pk[32], sk[64];
-    unsigned char message[] = "test message";
+    const unsigned char message[] = "test message";
     unsigned char sig[64];
 
     ASSERT(ed25519_create_seed(seed) == 0, "seed creation");
@@ -83,7 +83,7 @@ int test_libsodium_self_compatibility() {
     unsigned char seed[crypto_sign_SEEDBYTES];
     unsigned char pk[crypto_sign_PUBLICKEYBYTES];
     unsigned char sk[crypto_sign_SECRETKEYBYTES];
-    unsigned char message[] = "test message";
+    const unsigned char message[] = "test message";
     unsigned char sig[crypto_sign_BYTES];
     unsigned long long sig_len = 0;
 
@@ -106,7 +106,7 @@ int test_orlp_sign_libsodium_verify() {
     test_count++;
     unsigned char seed[32];
     unsigned char orlp_pk[32], orlp_sk[64];
-    unsigned char message[] = "cross library test";
+    const unsigned char message[] = "cross library test";
     unsigned char orlp_sig[64];
 
     ASSERT(ed25519_create_seed(seed) == 0, "seed creation");
@@ -128,7 +128,7 @@ int test_libsodium_sign_orlp_verify() {
     unsigned char seed[crypto_sign_SEEDBYTES];
     unsigned char pk[crypto_sign_PUBLICKEYBYTES];
     unsigned char sk[crypto_sign_SECRETKEYBYTES];
-    unsigned char message[] = "cross library test";
+    const unsigned char message[] = "cross library test";
     unsigned char sig[crypto_sign_BYTES];
     unsigned long long sig_len = 0;
 
@@ -173,8 +173,8 @@ int test_different_messages() {
     test_count++;
     unsigned char seed[32];
     unsigned char pk[32], sk[64];
-    unsigned char msg1[] = "message one";
-    unsigned char msg2[] = "message two";
+    const unsigned char msg1[] = "message one";
+    const unsigned char msg2[] = "message two";
     unsigned char sig1[64], sig2[64];
 
     ed25519_create_seed(seed);
@@ -221,7 +221,7 @@ int test_invalid_signature_detection() {
     test_count++;
     unsigned char seed[32];
     unsigned char pk[32], sk[64];
-    unsigned char message[] = "test";
+    const unsigned char message[] = "test";
     unsigned char sig[64];
 
     ed25519_create_seed(seed);
@@ -258,7 +258,7 @@ int test_empty_message() {
     unsigned char seed[32];
     unsigned char pk[32], sk[64];
     unsigned char sig[64];
-    unsigned char empty_msg[] = "";
+    const unsigned char empty_msg[] = "";
 
     ed25519_create_seed(seed);
     ed25519_create_keypair(pk, sk, seed);
@@ -277,7 +277,7 @@ int test_compat_create_keypair_libsodium() {
     test_count++;
     unsigned char libsodium_pk[32];
     unsigned char libsodium_sk[64];
-    unsigned char message[] = "test message";
+    const unsigned char message[] = "test message";
     unsigned char sig[64];
 
     ASSERT(ed25519_create_keypair_libsodium(libsodium_pk, libsodium_sk) == 0,
@@ -318,7 +318,7 @@ int test_compat_orlp_sign_libsodium_verify() {
     test_count++;
     unsigned char seed[32];
     unsigned char orlp_pk[32], orlp_sk[64];
-    unsigned char message[] = "compat test";
+    const unsigned char message[] = "compat test";
     unsigned char sig[64];
 
     /* Create with orlp */

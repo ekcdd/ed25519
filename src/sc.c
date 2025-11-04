@@ -2,9 +2,7 @@
 #include "sc.h"
 
 static uint64_t load_3(const unsigned char *in) {
-    uint64_t result;
-
-    result = (uint64_t) in[0];
+    uint64_t result = (uint64_t) in[0];
     result |= ((uint64_t) in[1]) << 8;
     result |= ((uint64_t) in[2]) << 16;
 
@@ -12,9 +10,7 @@ static uint64_t load_3(const unsigned char *in) {
 }
 
 static uint64_t load_4(const unsigned char *in) {
-    uint64_t result;
-
-    result = (uint64_t) in[0];
+    uint64_t result = (uint64_t) in[0];
     result |= ((uint64_t) in[1]) << 8;
     result |= ((uint64_t) in[2]) << 16;
     result |= ((uint64_t) in[3]) << 24;
@@ -33,30 +29,30 @@ Output:
 */
 
 void sc_reduce(unsigned char *s) {
-    int64_t s0 = 2097151 & load_3(s);
-    int64_t s1 = 2097151 & (load_4(s + 2) >> 5);
-    int64_t s2 = 2097151 & (load_3(s + 5) >> 2);
-    int64_t s3 = 2097151 & (load_4(s + 7) >> 7);
-    int64_t s4 = 2097151 & (load_4(s + 10) >> 4);
-    int64_t s5 = 2097151 & (load_3(s + 13) >> 1);
-    int64_t s6 = 2097151 & (load_4(s + 15) >> 6);
-    int64_t s7 = 2097151 & (load_3(s + 18) >> 3);
-    int64_t s8 = 2097151 & load_3(s + 21);
-    int64_t s9 = 2097151 & (load_4(s + 23) >> 5);
-    int64_t s10 = 2097151 & (load_3(s + 26) >> 2);
-    int64_t s11 = 2097151 & (load_4(s + 28) >> 7);
-    int64_t s12 = 2097151 & (load_4(s + 31) >> 4);
-    int64_t s13 = 2097151 & (load_3(s + 34) >> 1);
-    int64_t s14 = 2097151 & (load_4(s + 36) >> 6);
-    int64_t s15 = 2097151 & (load_3(s + 39) >> 3);
-    int64_t s16 = 2097151 & load_3(s + 42);
-    int64_t s17 = 2097151 & (load_4(s + 44) >> 5);
-    int64_t s18 = 2097151 & (load_3(s + 47) >> 2);
-    int64_t s19 = 2097151 & (load_4(s + 49) >> 7);
-    int64_t s20 = 2097151 & (load_4(s + 52) >> 4);
-    int64_t s21 = 2097151 & (load_3(s + 55) >> 1);
-    int64_t s22 = 2097151 & (load_4(s + 57) >> 6);
-    int64_t s23 = (load_4(s + 60) >> 3);
+    int64_t s0 = (int64_t) (2097151 & load_3(s));
+    int64_t s1 = (int64_t) (2097151 & (load_4(s + 2) >> 5));
+    int64_t s2 = (int64_t) (2097151 & (load_3(s + 5) >> 2));
+    int64_t s3 = (int64_t) (2097151 & (load_4(s + 7) >> 7));
+    int64_t s4 = (int64_t) (2097151 & (load_4(s + 10) >> 4));
+    int64_t s5 = (int64_t) (2097151 & (load_3(s + 13) >> 1));
+    int64_t s6 = (int64_t) (2097151 & (load_4(s + 15) >> 6));
+    int64_t s7 = (int64_t) (2097151 & (load_3(s + 18) >> 3));
+    int64_t s8 = (int64_t) (2097151 & load_3(s + 21));
+    int64_t s9 = (int64_t) (2097151 & (load_4(s + 23) >> 5));
+    int64_t s10 = (int64_t) (2097151 & (load_3(s + 26) >> 2));
+    int64_t s11 = (int64_t) (2097151 & (load_4(s + 28) >> 7));
+    int64_t s12 = (int64_t) (2097151 & (load_4(s + 31) >> 4));
+    int64_t s13 = (int64_t) (2097151 & (load_3(s + 34) >> 1));
+    int64_t s14 = (int64_t) (2097151 & (load_4(s + 36) >> 6));
+    int64_t s15 = (int64_t) (2097151 & (load_3(s + 39) >> 3));
+    int64_t s16 = (int64_t) (2097151 & load_3(s + 42));
+    int64_t s17 = (int64_t) (2097151 & (load_4(s + 44) >> 5));
+    int64_t s18 = (int64_t) (2097151 & (load_3(s + 47) >> 2));
+    int64_t s19 = (int64_t) (2097151 & (load_4(s + 49) >> 7));
+    int64_t s20 = (int64_t) (2097151 & (load_4(s + 52) >> 4));
+    int64_t s21 = (int64_t) (2097151 & (load_3(s + 55) >> 1));
+    int64_t s22 = (int64_t) (2097151 & (load_4(s + 57) >> 6));
+    int64_t s23 = (int64_t) (load_4(s + 60) >> 3);
     int64_t carry0;
     int64_t carry1;
     int64_t carry2;
@@ -360,42 +356,42 @@ Output:
 */
 
 void sc_muladd(unsigned char *s, const unsigned char *a, const unsigned char *b, const unsigned char *c) {
-    int64_t a0 = 2097151 & load_3(a);
-    int64_t a1 = 2097151 & (load_4(a + 2) >> 5);
-    int64_t a2 = 2097151 & (load_3(a + 5) >> 2);
-    int64_t a3 = 2097151 & (load_4(a + 7) >> 7);
-    int64_t a4 = 2097151 & (load_4(a + 10) >> 4);
-    int64_t a5 = 2097151 & (load_3(a + 13) >> 1);
-    int64_t a6 = 2097151 & (load_4(a + 15) >> 6);
-    int64_t a7 = 2097151 & (load_3(a + 18) >> 3);
-    int64_t a8 = 2097151 & load_3(a + 21);
-    int64_t a9 = 2097151 & (load_4(a + 23) >> 5);
-    int64_t a10 = 2097151 & (load_3(a + 26) >> 2);
-    int64_t a11 = (load_4(a + 28) >> 7);
-    int64_t b0 = 2097151 & load_3(b);
-    int64_t b1 = 2097151 & (load_4(b + 2) >> 5);
-    int64_t b2 = 2097151 & (load_3(b + 5) >> 2);
-    int64_t b3 = 2097151 & (load_4(b + 7) >> 7);
-    int64_t b4 = 2097151 & (load_4(b + 10) >> 4);
-    int64_t b5 = 2097151 & (load_3(b + 13) >> 1);
-    int64_t b6 = 2097151 & (load_4(b + 15) >> 6);
-    int64_t b7 = 2097151 & (load_3(b + 18) >> 3);
-    int64_t b8 = 2097151 & load_3(b + 21);
-    int64_t b9 = 2097151 & (load_4(b + 23) >> 5);
-    int64_t b10 = 2097151 & (load_3(b + 26) >> 2);
-    int64_t b11 = (load_4(b + 28) >> 7);
-    int64_t c0 = 2097151 & load_3(c);
-    int64_t c1 = 2097151 & (load_4(c + 2) >> 5);
-    int64_t c2 = 2097151 & (load_3(c + 5) >> 2);
-    int64_t c3 = 2097151 & (load_4(c + 7) >> 7);
-    int64_t c4 = 2097151 & (load_4(c + 10) >> 4);
-    int64_t c5 = 2097151 & (load_3(c + 13) >> 1);
-    int64_t c6 = 2097151 & (load_4(c + 15) >> 6);
-    int64_t c7 = 2097151 & (load_3(c + 18) >> 3);
-    int64_t c8 = 2097151 & load_3(c + 21);
-    int64_t c9 = 2097151 & (load_4(c + 23) >> 5);
-    int64_t c10 = 2097151 & (load_3(c + 26) >> 2);
-    int64_t c11 = (load_4(c + 28) >> 7);
+    int64_t a0 = (int64_t) (2097151 & load_3(a));
+    int64_t a1 = (int64_t) (2097151 & (load_4(a + 2) >> 5));
+    int64_t a2 = (int64_t) (2097151 & (load_3(a + 5) >> 2));
+    int64_t a3 = (int64_t) (2097151 & (load_4(a + 7) >> 7));
+    int64_t a4 = (int64_t) (2097151 & (load_4(a + 10) >> 4));
+    int64_t a5 = (int64_t) (2097151 & (load_3(a + 13) >> 1));
+    int64_t a6 = (int64_t) (2097151 & (load_4(a + 15) >> 6));
+    int64_t a7 = (int64_t) (2097151 & (load_3(a + 18) >> 3));
+    int64_t a8 = (int64_t) (2097151 & load_3(a + 21));
+    int64_t a9 = (int64_t) (2097151 & (load_4(a + 23) >> 5));
+    int64_t a10 = (int64_t) (2097151 & (load_3(a + 26) >> 2));
+    int64_t a11 = (int64_t) (load_4(a + 28) >> 7);
+    int64_t b0 = (int64_t) (2097151 & load_3(b));
+    int64_t b1 = (int64_t) (2097151 & (load_4(b + 2) >> 5));
+    int64_t b2 = (int64_t) (2097151 & (load_3(b + 5) >> 2));
+    int64_t b3 = (int64_t) (2097151 & (load_4(b + 7) >> 7));
+    int64_t b4 = (int64_t) (2097151 & (load_4(b + 10) >> 4));
+    int64_t b5 = (int64_t) (2097151 & (load_3(b + 13) >> 1));
+    int64_t b6 = (int64_t) (2097151 & (load_4(b + 15) >> 6));
+    int64_t b7 = (int64_t) (2097151 & (load_3(b + 18) >> 3));
+    int64_t b8 = (int64_t) (2097151 & load_3(b + 21));
+    int64_t b9 = (int64_t) (2097151 & (load_4(b + 23) >> 5));
+    int64_t b10 = (int64_t) (2097151 & (load_3(b + 26) >> 2));
+    int64_t b11 = (int64_t) (load_4(b + 28) >> 7);
+    int64_t c0 = (int64_t) (2097151 & load_3(c));
+    int64_t c1 = (int64_t) (2097151 & (load_4(c + 2) >> 5));
+    int64_t c2 = (int64_t) (2097151 & (load_3(c + 5) >> 2));
+    int64_t c3 = (int64_t) (2097151 & (load_4(c + 7) >> 7));
+    int64_t c4 = (int64_t) (2097151 & (load_4(c + 10) >> 4));
+    int64_t c5 = (int64_t) (2097151 & (load_3(c + 13) >> 1));
+    int64_t c6 = (int64_t) (2097151 & (load_4(c + 15) >> 6));
+    int64_t c7 = (int64_t) (2097151 & (load_3(c + 18) >> 3));
+    int64_t c8 = (int64_t) (2097151 & load_3(c + 21));
+    int64_t c9 = (int64_t) (2097151 & (load_4(c + 23) >> 5));
+    int64_t c10 = (int64_t) (2097151 & (load_3(c + 26) >> 2));
+    int64_t c11 = (int64_t) (load_4(c + 28) >> 7);
     int64_t s0;
     int64_t s1;
     int64_t s2;

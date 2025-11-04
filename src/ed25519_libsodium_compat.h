@@ -33,8 +33,8 @@ extern "C" {
 
 /* generic status codes for this compat layer */
 #define ED25519_LIBSODIUM_OK 0
-#define ED25519_LIBSODIUM_ERR_INVALID_ARG -1
-#define ED25519_LIBSODIUM_ERR_NOT_IMPLEMENTED -2
+#define ED25519_LIBSODIUM_ERR_INVALID_ARG (-1)
+#define ED25519_LIBSODIUM_ERR_NOT_IMPLEMENTED (-2)
 
 /*
  * Convert from libsodium secret key format to orlp private key format.
@@ -63,7 +63,7 @@ int ED25519_DECLSPEC ed25519_libsodium_to_orlp_secret_key(
  * limitation of the upstream API.
  */
 int ED25519_DECLSPEC ed25519_orlp_to_libsodium_secret_key(
-    unsigned char *libsodium_secret_key,
+    const unsigned char *libsodium_secret_key,
     const unsigned char *orlp_private_key,
     const unsigned char *public_key);
 

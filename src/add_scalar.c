@@ -16,7 +16,7 @@ void ed25519_add_scalar(unsigned char *public_key, unsigned char *private_key, c
     ge_cached T;
 
     sha512_context hash;
-    unsigned char hashbuf[64];
+    unsigned char hashBuf[64];
 
     int i;
 
@@ -34,16 +34,16 @@ void ed25519_add_scalar(unsigned char *public_key, unsigned char *private_key, c
         sha512_init(&hash);
         sha512_update(&hash, private_key + 32, 32);
         sha512_update(&hash, scalar, 32);
-        sha512_final(&hash, hashbuf);
+        sha512_final(&hash, hashBuf);
         for (i = 0; i < 32; ++i) {
-            private_key[32 + i] = hashbuf[i];
+            private_key[32 + i] = hashBuf[i];
         }
     }
 
     /* public key: A = nB + T */
     if (public_key) {
         /* if we know the private key we don't need a point addition, which is faster */
-        /* using a "timing attack" you could find out wether or not we know the private
+        /* using a "timing attack" you could find out whether we know the private
            key, but this information seems rather useless - if this is important pass
            public_key and private_key separately in 2 function calls */
         if (private_key) {

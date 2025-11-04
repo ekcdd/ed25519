@@ -25,30 +25,28 @@ void ge_add(ge_p1p1 *r, const ge_p3 *p, const ge_cached *q) {
 
 static void slide(signed char *r, const unsigned char *a) {
     int i;
-    int b;
-    int k;
 
     for (i = 0; i < 256; ++i) {
-        r[i] = 1 & (a[i >> 3] >> (i & 7));
+        r[i] = (signed char) (1 & (a[i >> 3] >> (i & 7)));
     }
 
     for (i = 0; i < 256; ++i)
         if (r[i]) {
-            for (b = 1; b <= 6 && i + b < 256; ++b) {
+            for (int b = 1; b <= 6 && i + b < 256; ++b) {
                 if (r[i + b]) {
                     if (r[i] + (r[i + b] << b) <= 15) {
-                        r[i] += r[i + b] << b;
-                        r[i + b] = 0;
+                        r[i] = (signed char) (r[i] + (r[i + b] << b));
+                        r[i + b] = (signed char) 0;
                     } else if (r[i] - (r[i + b] << b) >= -15) {
-                        r[i] -= r[i + b] << b;
+                        r[i] = (signed char) (r[i] - (r[i + b] << b));
 
-                        for (k = i + b; k < 256; ++k) {
+                        for (int k = i + b; k < 256; ++k) {
                             if (!r[k]) {
-                                r[k] = 1;
+                                r[k] = (signed char) 1;
                                 break;
                             }
 
-                            r[k] = 0;
+                            r[k] = (signed char) 0;
                         }
                     } else {
                         break;
@@ -331,10 +329,10 @@ void ge_p3_tobytes(unsigned char *s, const ge_p3 *h) {
 }
 
 
-static unsigned char equal(signed char b, signed char c) {
-    unsigned char ub = (unsigned char)b;
-    unsigned char uc = (unsigned char)c;
-    unsigned char x = ub ^ uc; /* 0: yes; 1..255: no */
+static unsigned char equal(const signed char b, const signed char c) {
+    const unsigned char ub = (unsigned char)b;
+    const unsigned char uc = (unsigned char)c;
+    const unsigned char x = ub ^ uc; /* 0: yes; 1..255: no */
     uint64_t y = x; /* 0: yes; 1..255: no */
     y -= 1; /* large: yes; 0..254: no */
     y >>= 63; /* 1: yes; 0: no */
@@ -357,7 +355,7 @@ static void cmov(ge_precomp *t, const ge_precomp *u, unsigned char b) {
 static void select(ge_precomp *t, int pos, signed char b) {
     ge_precomp minust;
     unsigned char bnegative = negative(b);
-    unsigned char babs = (unsigned char) (b - (((-bnegative) & b) << 1));
+    const unsigned char babs = (unsigned char) (b - (((-bnegative) & b) << 1));
     fe_1(t->yplusx);
     fe_1(t->yminusx);
     fe_0(t->xy2d);
@@ -386,29 +384,28 @@ Preconditions:
 
 void ge_scalarmult_base(ge_p3 *h, const unsigned char *a) {
     signed char e[64];
-    signed char carry;
     ge_p1p1 r;
     ge_p2 s;
     ge_precomp t;
     int i;
 
     for (i = 0; i < 32; ++i) {
-        e[2 * i + 0] = (a[i] >> 0) & 15;
-        e[2 * i + 1] = (a[i] >> 4) & 15;
+        e[2 * i + 0] = (signed char) ((a[i] >> 0) & 15);
+        e[2 * i + 1] = (signed char) ((a[i] >> 4) & 15);
     }
 
     /* each e[i] is between 0 and 15 */
     /* e[63] is between 0 and 7 */
-    carry = 0;
+    signed char carry = 0;
 
     for (i = 0; i < 63; ++i) {
-        e[i] += carry;
-        carry = e[i] + 8;
-        carry >>= 4;
-        e[i] -= carry << 4;
+        e[i] = (signed char) (e[i] + carry);
+        carry = (signed char) (e[i] + 8);
+        carry = (signed char) (carry >> 4);
+        e[i] = (signed char) (e[i] - (carry << 4));
     }
 
-    e[63] += carry;
+    e[63] = (signed char) (e[63] + carry);
     /* each e[i] is between -8 and 8 */
     ge_p3_0(h);
 

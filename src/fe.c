@@ -6,9 +6,7 @@
     helper functions
 */
 static uint64_t load_3(const unsigned char *in) {
-    uint64_t result;
-
-    result = (uint64_t) in[0];
+    uint64_t result = in[0];
     result |= ((uint64_t) in[1]) << 8;
     result |= ((uint64_t) in[2]) << 16;
 
@@ -16,9 +14,7 @@ static uint64_t load_3(const unsigned char *in) {
 }
 
 static uint64_t load_4(const unsigned char *in) {
-    uint64_t result;
-
-    result = (uint64_t) in[0];
+    uint64_t result = in[0];
     result |= ((uint64_t) in[1]) << 8;
     result |= ((uint64_t) in[2]) << 16;
     result |= ((uint64_t) in[3]) << 24;
@@ -79,36 +75,36 @@ void fe_1(fe h) {
 */
 
 void fe_add(fe h, const fe f, const fe g) {
-    int32_t f0 = f[0];
-    int32_t f1 = f[1];
-    int32_t f2 = f[2];
-    int32_t f3 = f[3];
-    int32_t f4 = f[4];
-    int32_t f5 = f[5];
-    int32_t f6 = f[6];
-    int32_t f7 = f[7];
-    int32_t f8 = f[8];
-    int32_t f9 = f[9];
-    int32_t g0 = g[0];
-    int32_t g1 = g[1];
-    int32_t g2 = g[2];
-    int32_t g3 = g[3];
-    int32_t g4 = g[4];
-    int32_t g5 = g[5];
-    int32_t g6 = g[6];
-    int32_t g7 = g[7];
-    int32_t g8 = g[8];
-    int32_t g9 = g[9];
-    int32_t h0 = f0 + g0;
-    int32_t h1 = f1 + g1;
-    int32_t h2 = f2 + g2;
-    int32_t h3 = f3 + g3;
-    int32_t h4 = f4 + g4;
-    int32_t h5 = f5 + g5;
-    int32_t h6 = f6 + g6;
-    int32_t h7 = f7 + g7;
-    int32_t h8 = f8 + g8;
-    int32_t h9 = f9 + g9;
+    const int32_t f0 = f[0];
+    const int32_t f1 = f[1];
+    const int32_t f2 = f[2];
+    const int32_t f3 = f[3];
+    const int32_t f4 = f[4];
+    const int32_t f5 = f[5];
+    const int32_t f6 = f[6];
+    const int32_t f7 = f[7];
+    const int32_t f8 = f[8];
+    const int32_t f9 = f[9];
+    const int32_t g0 = g[0];
+    const int32_t g1 = g[1];
+    const int32_t g2 = g[2];
+    const int32_t g3 = g[3];
+    const int32_t g4 = g[4];
+    const int32_t g5 = g[5];
+    const int32_t g6 = g[6];
+    const int32_t g7 = g[7];
+    const int32_t g8 = g[8];
+    const int32_t g9 = g[9];
+    const int32_t h0 = f0 + g0;
+    const int32_t h1 = f1 + g1;
+    const int32_t h2 = f2 + g2;
+    const int32_t h3 = f3 + g3;
+    const int32_t h4 = f4 + g4;
+    const int32_t h5 = f5 + g5;
+    const int32_t h6 = f6 + g6;
+    const int32_t h7 = f7 + g7;
+    const int32_t h8 = f8 + g8;
+    const int32_t h9 = f9 + g9;
 
     h[0] = h0;
     h[1] = h1;
@@ -132,26 +128,26 @@ void fe_add(fe h, const fe f, const fe g) {
 */
 
 void fe_cmov(fe f, const fe g, unsigned int b) {
-    int32_t f0 = f[0];
-    int32_t f1 = f[1];
-    int32_t f2 = f[2];
-    int32_t f3 = f[3];
-    int32_t f4 = f[4];
-    int32_t f5 = f[5];
-    int32_t f6 = f[6];
-    int32_t f7 = f[7];
-    int32_t f8 = f[8];
-    int32_t f9 = f[9];
-    int32_t g0 = g[0];
-    int32_t g1 = g[1];
-    int32_t g2 = g[2];
-    int32_t g3 = g[3];
-    int32_t g4 = g[4];
-    int32_t g5 = g[5];
-    int32_t g6 = g[6];
-    int32_t g7 = g[7];
-    int32_t g8 = g[8];
-    int32_t g9 = g[9];
+    const int32_t f0 = f[0];
+    const int32_t f1 = f[1];
+    const int32_t f2 = f[2];
+    const int32_t f3 = f[3];
+    const int32_t f4 = f[4];
+    const int32_t f5 = f[5];
+    const int32_t f6 = f[6];
+    const int32_t f7 = f[7];
+    const int32_t f8 = f[8];
+    const int32_t f9 = f[9];
+    const int32_t g0 = g[0];
+    const int32_t g1 = g[1];
+    const int32_t g2 = g[2];
+    const int32_t g3 = g[3];
+    const int32_t g4 = g[4];
+    const int32_t g5 = g[5];
+    const int32_t g6 = g[6];
+    const int32_t g7 = g[7];
+    const int32_t g8 = g[8];
+    const int32_t g9 = g[9];
     int32_t x0 = f0 ^ g0;
     int32_t x1 = f1 ^ g1;
     int32_t x2 = f2 ^ g2;
@@ -163,17 +159,18 @@ void fe_cmov(fe f, const fe g, unsigned int b) {
     int32_t x8 = f8 ^ g8;
     int32_t x9 = f9 ^ g9;
 
-    b = (unsigned int) (- (int) b); /* silence warning */
-    x0 &= b;
-    x1 &= b;
-    x2 &= b;
-    x3 &= b;
-    x4 &= b;
-    x5 &= b;
-    x6 &= b;
-    x7 &= b;
-    x8 &= b;
-    x9 &= b;
+    /* Create a constant-time mask of either 0 or -1 without modifying the parameter. */
+    const int32_t mask = - (int32_t)(b & 1u);
+    x0 &= mask;
+    x1 &= mask;
+    x2 &= mask;
+    x3 &= mask;
+    x4 &= mask;
+    x5 &= mask;
+    x6 &= mask;
+    x7 &= mask;
+    x8 &= mask;
+    x9 &= mask;
 
     f[0] = f0 ^ x0;
     f[1] = f1 ^ x1;
@@ -195,26 +192,26 @@ void fe_cmov(fe f, const fe g, unsigned int b) {
 */
 
 void fe_cswap(fe f,fe g,unsigned int b) {
-    int32_t f0 = f[0];
-    int32_t f1 = f[1];
-    int32_t f2 = f[2];
-    int32_t f3 = f[3];
-    int32_t f4 = f[4];
-    int32_t f5 = f[5];
-    int32_t f6 = f[6];
-    int32_t f7 = f[7];
-    int32_t f8 = f[8];
-    int32_t f9 = f[9];
-    int32_t g0 = g[0];
-    int32_t g1 = g[1];
-    int32_t g2 = g[2];
-    int32_t g3 = g[3];
-    int32_t g4 = g[4];
-    int32_t g5 = g[5];
-    int32_t g6 = g[6];
-    int32_t g7 = g[7];
-    int32_t g8 = g[8];
-    int32_t g9 = g[9];
+    const int32_t f0 = f[0];
+    const int32_t f1 = f[1];
+    const int32_t f2 = f[2];
+    const int32_t f3 = f[3];
+    const int32_t f4 = f[4];
+    const int32_t f5 = f[5];
+    const int32_t f6 = f[6];
+    const int32_t f7 = f[7];
+    const int32_t f8 = f[8];
+    const int32_t f9 = f[9];
+    const int32_t g0 = g[0];
+    const int32_t g1 = g[1];
+    const int32_t g2 = g[2];
+    const int32_t g3 = g[3];
+    const int32_t g4 = g[4];
+    const int32_t g5 = g[5];
+    const int32_t g6 = g[6];
+    const int32_t g7 = g[7];
+    const int32_t g8 = g[8];
+    const int32_t g9 = g[9];
     int32_t x0 = f0 ^ g0;
     int32_t x1 = f1 ^ g1;
     int32_t x2 = f2 ^ g2;
@@ -225,17 +222,20 @@ void fe_cswap(fe f,fe g,unsigned int b) {
     int32_t x7 = f7 ^ g7;
     int32_t x8 = f8 ^ g8;
     int32_t x9 = f9 ^ g9;
-    b = (unsigned int) (- (int) b); /* silence warning */
-    x0 &= b;
-    x1 &= b;
-    x2 &= b;
-    x3 &= b;
-    x4 &= b;
-    x5 &= b;
-    x6 &= b;
-    x7 &= b;
-    x8 &= b;
-    x9 &= b;
+
+    /* Create a constant-time mask of either 0 or -1 without modifying the parameter. */
+    const int32_t mask = - (int32_t)(b & 1u);
+    x0 &= mask;
+    x1 &= mask;
+    x2 &= mask;
+    x3 &= mask;
+    x4 &= mask;
+    x5 &= mask;
+    x6 &= mask;
+    x7 &= mask;
+    x8 &= mask;
+    x9 &= mask;
+
     f[0] = f0 ^ x0;
     f[1] = f1 ^ x1;
     f[2] = f2 ^ x2;
@@ -265,16 +265,16 @@ void fe_cswap(fe f,fe g,unsigned int b) {
 */
 
 void fe_copy(fe h, const fe f) {
-    int32_t f0 = f[0];
-    int32_t f1 = f[1];
-    int32_t f2 = f[2];
-    int32_t f3 = f[3];
-    int32_t f4 = f[4];
-    int32_t f5 = f[5];
-    int32_t f6 = f[6];
-    int32_t f7 = f[7];
-    int32_t f8 = f[8];
-    int32_t f9 = f[9];
+    const int32_t f0 = f[0];
+    const int32_t f1 = f[1];
+    const int32_t f2 = f[2];
+    const int32_t f3 = f[3];
+    const int32_t f4 = f[4];
+    const int32_t f5 = f[5];
+    const int32_t f6 = f[6];
+    const int32_t f7 = f[7];
+    const int32_t f8 = f[8];
+    const int32_t f9 = f[9];
 
     h[0] = f0;
     h[1] = f1;
@@ -305,45 +305,35 @@ void fe_frombytes(fe h, const unsigned char *s) {
     int64_t h7 = (int64_t) (load_3(s + 23) << 5);
     int64_t h8 = (int64_t) (load_3(s + 26) << 4);
     int64_t h9 = (int64_t) ((load_3(s + 29) & 8388607) << 2);
-    int64_t carry0;
-    int64_t carry1;
-    int64_t carry2;
-    int64_t carry3;
-    int64_t carry4;
-    int64_t carry5;
-    int64_t carry6;
-    int64_t carry7;
-    int64_t carry8;
-    int64_t carry9;
 
-    carry9 = (h9 + (int64_t) (1 << 24)) >> 25;
+    const int64_t carry9 = (h9 + (int64_t) (1 << 24)) >> 25;
     h0 += carry9 * 19;
     h9 -= carry9 << 25;
-    carry1 = (h1 + (int64_t) (1 << 24)) >> 25;
+    const int64_t carry1 = (h1 + (int64_t) (1 << 24)) >> 25;
     h2 += carry1;
     h1 -= carry1 << 25;
-    carry3 = (h3 + (int64_t) (1 << 24)) >> 25;
+    const int64_t carry3 = (h3 + (int64_t) (1 << 24)) >> 25;
     h4 += carry3;
     h3 -= carry3 << 25;
-    carry5 = (h5 + (int64_t) (1 << 24)) >> 25;
+    const int64_t carry5 = (h5 + (int64_t) (1 << 24)) >> 25;
     h6 += carry5;
     h5 -= carry5 << 25;
-    carry7 = (h7 + (int64_t) (1 << 24)) >> 25;
+    const int64_t carry7 = (h7 + (int64_t) (1 << 24)) >> 25;
     h8 += carry7;
     h7 -= carry7 << 25;
-    carry0 = (h0 + (int64_t) (1 << 25)) >> 26;
+    const int64_t carry0 = (h0 + (int64_t) (1 << 25)) >> 26;
     h1 += carry0;
     h0 -= carry0 << 26;
-    carry2 = (h2 + (int64_t) (1 << 25)) >> 26;
+    const int64_t carry2 = (h2 + (int64_t) (1 << 25)) >> 26;
     h3 += carry2;
     h2 -= carry2 << 26;
-    carry4 = (h4 + (int64_t) (1 << 25)) >> 26;
+    const int64_t carry4 = (h4 + (int64_t) (1 << 25)) >> 26;
     h5 += carry4;
     h4 -= carry4 << 26;
-    carry6 = (h6 + (int64_t) (1 << 25)) >> 26;
+    const int64_t carry6 = (h6 + (int64_t) (1 << 25)) >> 26;
     h7 += carry6;
     h6 -= carry6 << 26;
-    carry8 = (h8 + (int64_t) (1 << 25)) >> 26;
+    const int64_t carry8 = (h8 + (int64_t) (1 << 25)) >> 26;
     h9 += carry8;
     h8 -= carry8 << 26;
 
@@ -477,11 +467,10 @@ int fe_isnegative(const fe f) {
 
 int fe_isnonzero(const fe f) {
     unsigned char s[32];
-    unsigned char r;
 
     fe_tobytes(s, f);
 
-    r = s[0];
+    unsigned char r = s[0];
     #define F(i) r |= s[i]
     F(1);
     F(2);
@@ -540,7 +529,7 @@ int fe_isnonzero(const fe f) {
     Karatsuba would save a little in some cost models.
 
     Most multiplications by 2 and 19 are 32-bit precomputations;
-    cheaper than 64-bit postcomputations.
+    cheaper than 64-bit post computations.
 
     There is one remaining multiplication by 19 in the carry chain;
     one *19 precomputation can be merged into this,
@@ -575,7 +564,7 @@ void fe_mul(fe h, const fe f, const fe g) {
     int32_t g8 = g[8];
     int32_t g9 = g[9];
     int32_t g1_19 = 19 * g1; /* 1.959375*2^29 */
-    int32_t g2_19 = 19 * g2; /* 1.959375*2^30; still ok */
+    int32_t g2_19 = 19 * g2; /* 1.959375*2^30; still OK */
     int32_t g3_19 = 19 * g3;
     int32_t g4_19 = 19 * g4;
     int32_t g5_19 = 19 * g5;
@@ -776,17 +765,17 @@ Postconditions:
    |h| bounded by 1.1*2^25,1.1*2^24,1.1*2^25,1.1*2^24,etc.
 */
 
-void fe_mul121666(fe h, fe f) {
-    int32_t f0 = f[0];
-    int32_t f1 = f[1];
-    int32_t f2 = f[2];
-    int32_t f3 = f[3];
-    int32_t f4 = f[4];
-    int32_t f5 = f[5];
-    int32_t f6 = f[6];
-    int32_t f7 = f[7];
-    int32_t f8 = f[8];
-    int32_t f9 = f[9];
+void fe_mul121666(fe h, const fe f) {
+    const int32_t f0 = f[0];
+    const int32_t f1 = f[1];
+    const int32_t f2 = f[2];
+    const int32_t f3 = f[3];
+    const int32_t f4 = f[4];
+    const int32_t f5 = f[5];
+    const int32_t f6 = f[6];
+    const int32_t f7 = f[7];
+    const int32_t f8 = f[8];
+    const int32_t f9 = f[9];
     int64_t h0 = f0 * (int64_t) 121666;
     int64_t h1 = f1 * (int64_t) 121666;
     int64_t h2 = f2 * (int64_t) 121666;
@@ -797,28 +786,18 @@ void fe_mul121666(fe h, fe f) {
     int64_t h7 = f7 * (int64_t) 121666;
     int64_t h8 = f8 * (int64_t) 121666;
     int64_t h9 = f9 * (int64_t) 121666;
-    int64_t carry0;
-    int64_t carry1;
-    int64_t carry2;
-    int64_t carry3;
-    int64_t carry4;
-    int64_t carry5;
-    int64_t carry6;
-    int64_t carry7;
-    int64_t carry8;
-    int64_t carry9;
 
-    carry9 = (h9 + (int64_t) (1<<24)) >> 25; h0 += carry9 * 19; h9 -= carry9 << 25;
-    carry1 = (h1 + (int64_t) (1<<24)) >> 25; h2 += carry1; h1 -= carry1 << 25;
-    carry3 = (h3 + (int64_t) (1<<24)) >> 25; h4 += carry3; h3 -= carry3 << 25;
-    carry5 = (h5 + (int64_t) (1<<24)) >> 25; h6 += carry5; h5 -= carry5 << 25;
-    carry7 = (h7 + (int64_t) (1<<24)) >> 25; h8 += carry7; h7 -= carry7 << 25;
+    const int64_t carry9 = (h9 + (int64_t) (1 << 24)) >> 25; h0 += carry9 * 19; h9 -= carry9 << 25;
+    const int64_t carry1 = (h1 + (int64_t) (1 << 24)) >> 25; h2 += carry1; h1 -= carry1 << 25;
+    const int64_t carry3 = (h3 + (int64_t) (1 << 24)) >> 25; h4 += carry3; h3 -= carry3 << 25;
+    const int64_t carry5 = (h5 + (int64_t) (1 << 24)) >> 25; h6 += carry5; h5 -= carry5 << 25;
+    const int64_t carry7 = (h7 + (int64_t) (1 << 24)) >> 25; h8 += carry7; h7 -= carry7 << 25;
 
-    carry0 = (h0 + (int64_t) (1<<25)) >> 26; h1 += carry0; h0 -= carry0 << 26;
-    carry2 = (h2 + (int64_t) (1<<25)) >> 26; h3 += carry2; h2 -= carry2 << 26;
-    carry4 = (h4 + (int64_t) (1<<25)) >> 26; h5 += carry4; h4 -= carry4 << 26;
-    carry6 = (h6 + (int64_t) (1<<25)) >> 26; h7 += carry6; h6 -= carry6 << 26;
-    carry8 = (h8 + (int64_t) (1<<25)) >> 26; h9 += carry8; h8 -= carry8 << 26;
+    const int64_t carry0 = (h0 + (int64_t) (1 << 25)) >> 26; h1 += carry0; h0 -= carry0 << 26;
+    const int64_t carry2 = (h2 + (int64_t) (1 << 25)) >> 26; h3 += carry2; h2 -= carry2 << 26;
+    const int64_t carry4 = (h4 + (int64_t) (1 << 25)) >> 26; h5 += carry4; h4 -= carry4 << 26;
+    const int64_t carry6 = (h6 + (int64_t) (1 << 25)) >> 26; h7 += carry6; h6 -= carry6 << 26;
+    const int64_t carry8 = (h8 + (int64_t) (1 << 25)) >> 26; h9 += carry8; h8 -= carry8 << 26;
 
     h[0] = (int32_t) h0;
     h[1] = (int32_t) h1;
@@ -844,26 +823,26 @@ Postconditions:
 */
 
 void fe_neg(fe h, const fe f) {
-    int32_t f0 = f[0];
-    int32_t f1 = f[1];
-    int32_t f2 = f[2];
-    int32_t f3 = f[3];
-    int32_t f4 = f[4];
-    int32_t f5 = f[5];
-    int32_t f6 = f[6];
-    int32_t f7 = f[7];
-    int32_t f8 = f[8];
-    int32_t f9 = f[9];
-    int32_t h0 = -f0;
-    int32_t h1 = -f1;
-    int32_t h2 = -f2;
-    int32_t h3 = -f3;
-    int32_t h4 = -f4;
-    int32_t h5 = -f5;
-    int32_t h6 = -f6;
-    int32_t h7 = -f7;
-    int32_t h8 = -f8;
-    int32_t h9 = -f9;
+    const int32_t f0 = f[0];
+    const int32_t f1 = f[1];
+    const int32_t f2 = f[2];
+    const int32_t f3 = f[3];
+    const int32_t f4 = f[4];
+    const int32_t f5 = f[5];
+    const int32_t f6 = f[6];
+    const int32_t f7 = f[7];
+    const int32_t f8 = f[8];
+    const int32_t f9 = f[9];
+    const int32_t h0 = -f0;
+    const int32_t h1 = -f1;
+    const int32_t h2 = -f2;
+    const int32_t h3 = -f3;
+    const int32_t h4 = -f4;
+    const int32_t h5 = -f5;
+    const int32_t h6 = -f6;
+    const int32_t h7 = -f7;
+    const int32_t h8 = -f8;
+    const int32_t h9 = -f9;
 
     h[0] = h0;
     h[1] = h1;
@@ -960,7 +939,6 @@ void fe_pow22523(fe out, const fe z) {
     }
 
     fe_mul(out, t0, z);
-    return;
 }
 
 
@@ -1313,36 +1291,36 @@ Postconditions:
 */
 
 void fe_sub(fe h, const fe f, const fe g) {
-    int32_t f0 = f[0];
-    int32_t f1 = f[1];
-    int32_t f2 = f[2];
-    int32_t f3 = f[3];
-    int32_t f4 = f[4];
-    int32_t f5 = f[5];
-    int32_t f6 = f[6];
-    int32_t f7 = f[7];
-    int32_t f8 = f[8];
-    int32_t f9 = f[9];
-    int32_t g0 = g[0];
-    int32_t g1 = g[1];
-    int32_t g2 = g[2];
-    int32_t g3 = g[3];
-    int32_t g4 = g[4];
-    int32_t g5 = g[5];
-    int32_t g6 = g[6];
-    int32_t g7 = g[7];
-    int32_t g8 = g[8];
-    int32_t g9 = g[9];
-    int32_t h0 = f0 - g0;
-    int32_t h1 = f1 - g1;
-    int32_t h2 = f2 - g2;
-    int32_t h3 = f3 - g3;
-    int32_t h4 = f4 - g4;
-    int32_t h5 = f5 - g5;
-    int32_t h6 = f6 - g6;
-    int32_t h7 = f7 - g7;
-    int32_t h8 = f8 - g8;
-    int32_t h9 = f9 - g9;
+    const int32_t f0 = f[0];
+    const int32_t f1 = f[1];
+    const int32_t f2 = f[2];
+    const int32_t f3 = f[3];
+    const int32_t f4 = f[4];
+    const int32_t f5 = f[5];
+    const int32_t f6 = f[6];
+    const int32_t f7 = f[7];
+    const int32_t f8 = f[8];
+    const int32_t f9 = f[9];
+    const int32_t g0 = g[0];
+    const int32_t g1 = g[1];
+    const int32_t g2 = g[2];
+    const int32_t g3 = g[3];
+    const int32_t g4 = g[4];
+    const int32_t g5 = g[5];
+    const int32_t g6 = g[6];
+    const int32_t g7 = g[7];
+    const int32_t g8 = g[8];
+    const int32_t g9 = g[9];
+    const int32_t h0 = f0 - g0;
+    const int32_t h1 = f1 - g1;
+    const int32_t h2 = f2 - g2;
+    const int32_t h3 = f3 - g3;
+    const int32_t h4 = f4 - g4;
+    const int32_t h5 = f5 - g5;
+    const int32_t h6 = f6 - g6;
+    const int32_t h7 = f7 - g7;
+    const int32_t h8 = f8 - g8;
+    const int32_t h9 = f9 - g9;
 
     h[0] = h0;
     h[1] = h1;
@@ -1394,18 +1372,7 @@ void fe_tobytes(unsigned char *s, const fe h) {
     int32_t h7 = h[7];
     int32_t h8 = h[8];
     int32_t h9 = h[9];
-    int32_t q;
-    int32_t carry0;
-    int32_t carry1;
-    int32_t carry2;
-    int32_t carry3;
-    int32_t carry4;
-    int32_t carry5;
-    int32_t carry6;
-    int32_t carry7;
-    int32_t carry8;
-    int32_t carry9;
-    q = (19 * h9 + (((int32_t) 1) << 24)) >> 25;
+    int32_t q = (19 * h9 + (((int32_t) 1) << 24)) >> 25;
     q = (h0 + q) >> 26;
     q = (h1 + q) >> 25;
     q = (h2 + q) >> 26;
@@ -1419,34 +1386,34 @@ void fe_tobytes(unsigned char *s, const fe h) {
     /* Goal: Output h-(2^255-19)q, which is between 0 and 2^255-20. */
     h0 += 19 * q;
     /* Goal: Output h-2^255 q, which is between 0 and 2^255-20. */
-    carry0 = h0 >> 26;
+    const int32_t carry0 = h0 >> 26;
     h1 += carry0;
     h0 -= carry0 << 26;
-    carry1 = h1 >> 25;
+    const int32_t carry1 = h1 >> 25;
     h2 += carry1;
     h1 -= carry1 << 25;
-    carry2 = h2 >> 26;
+    const int32_t carry2 = h2 >> 26;
     h3 += carry2;
     h2 -= carry2 << 26;
-    carry3 = h3 >> 25;
+    const int32_t carry3 = h3 >> 25;
     h4 += carry3;
     h3 -= carry3 << 25;
-    carry4 = h4 >> 26;
+    const int32_t carry4 = h4 >> 26;
     h5 += carry4;
     h4 -= carry4 << 26;
-    carry5 = h5 >> 25;
+    const int32_t carry5 = h5 >> 25;
     h6 += carry5;
     h5 -= carry5 << 25;
-    carry6 = h6 >> 26;
+    const int32_t carry6 = h6 >> 26;
     h7 += carry6;
     h6 -= carry6 << 26;
-    carry7 = h7 >> 25;
+    const int32_t carry7 = h7 >> 25;
     h8 += carry7;
     h7 -= carry7 << 25;
-    carry8 = h8 >> 26;
+    const int32_t carry8 = h8 >> 26;
     h9 += carry8;
     h8 -= carry8 << 26;
-    carry9 = h9 >> 25;
+    const int32_t carry9 = h9 >> 25;
     h9 -= carry9 << 25;
 
     /* h10 = carry9 */

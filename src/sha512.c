@@ -170,8 +170,6 @@ int sha512_init(sha512_context * md) {
 */
 int sha512_update (sha512_context * md, const unsigned char *in, size_t inlen)
 {
-    size_t n;
-    size_t i;
     int           err;
     if (md == NULL) return 1;
     if (in == NULL) return 1;
@@ -187,9 +185,9 @@ int sha512_update (sha512_context * md, const unsigned char *in, size_t inlen)
            in             += 128;
            inlen          -= 128;
         } else {
-           n = MIN(inlen, (128 - md->curlen));
+           size_t n = MIN(inlen, (128 - md->curlen));
 
-           for (i = 0; i < n; i++) {
+           for (size_t i = 0; i < n; i++) {
             md->buf[i + md->curlen] = in[i];
            }
 
@@ -217,9 +215,7 @@ int sha512_update (sha512_context * md, const unsigned char *in, size_t inlen)
 */
    int sha512_final(sha512_context * md, unsigned char *out)
    {
-    int i;
-
-    if (md == NULL) return 1;
+       if (md == NULL) return 1;
     if (out == NULL) return 1;
 
     if (md->curlen >= sizeof(md->buf)) {
@@ -257,7 +253,7 @@ STORE64H(md->length, md->buf+120);
 sha512_compress(md, md->buf);
 
     /* copy output */
-for (i = 0; i < 8; i++) {
+for (int i = 0; i < 8; i++) {
     STORE64H(md->state[i], out+(8*i));
 }
 

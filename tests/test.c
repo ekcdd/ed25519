@@ -3,11 +3,8 @@
 #include <string.h>
 #include <time.h>
 
-/* #define ED25519_DLL */
-#include "../src/ed25519.h"
-
-#include "../src/ge.h"
-#include "../src/sc.h"
+#include "ed25519.h"
+#include "ed25519_libsodium_compat.h"
 
 
 int main() {
@@ -16,12 +13,10 @@ int main() {
     unsigned char shared_secret[32], other_shared_secret[32];
     unsigned char signature[64];
 
-    clock_t start;
-    clock_t end;
     int i;
 
     const unsigned char message[] = "Hello, world!";
-    const int message_len = strlen((char*) message);
+    const int message_len = (int)strlen((char*) message);
 
     /* create a random seed, and a keypair out of that seed */
     ed25519_create_seed(seed);
@@ -36,6 +31,69 @@ int main() {
     } else {
         printf("invalid signature\n");
     }
+
+    /* ---- libsodium compat API tests ---- */
+    unsigned char ls_public_key[ED25519_LIBSODIUM_PUBLIC_KEY_LEN];
+    unsigned char ls_secret_key[ED25519_LIBSODIUM_SECRET_KEY_LEN];
+    unsigned char ls_signature[ED25519_LIBSODIUM_SIGNATURE_LEN];
+    unsigned char orlp_private_from_ls[64];
+
+    /* create a libsodium-format keypair (secret = seed || pk) */
+    if (ed25519_create_keypair_libsodium(ls_public_key, ls_secret_key) == ED25519_LIBSODIUM_OK) {
+        printf("created libsodium-format keypair\n");
+    } else {
+        printf("failed to create libsodium-format keypair\n");
+    }
+
+    /* sign using libsodium-format secret key */
+    if (ed25519_sign_libsodium(ls_signature, message, (size_t)message_len, ls_secret_key) == ED25519_LIBSODIUM_OK) {
+        printf("created signature with libsodium compat api\n");
+    } else {
+        printf("failed to create signature with libsodium compat api\n");
+    }
+
+    /* verify via compat wrapper (same as ed25519_verify) */
+    if (ed25519_verify_libsodium(ls_signature, message, (size_t)message_len, ls_public_key)) {
+        printf("valid signature (compat verify)\n");
+    } else {
+        printf("invalid signature (compat verify)\n");
+    }
+
+    /* cross-verify using original API as well */
+    if (ed25519_verify(ls_signature, message, message_len, ls_public_key)) {
+        printf("valid signature (orlp verify on compat-signed)\n");
+    } else {
+        printf("invalid signature (orlp verify on compat-signed)\n");
+    }
+
+    /* convert libsodium secret key back to orlp private key and sign; signatures should match */
+    if (ed25519_libsodium_to_orlp_secret_key(orlp_private_from_ls, ls_secret_key) == ED25519_LIBSODIUM_OK) {
+        unsigned char sig2[64];
+        const unsigned char *pk_from_sk = ls_secret_key + ED25519_LIBSODIUM_SEED_LEN; /* second half is public key */
+        ed25519_sign(sig2, message, message_len, pk_from_sk, orlp_private_from_ls);
+        if (memcmp(sig2, ls_signature, 64) == 0) {
+            printf("compat/orlp signatures match for same message and key\n");
+        } else {
+            printf("compat/orlp signatures differ (still should verify)\n");
+        }
+        if (ed25519_verify(sig2, message, message_len, pk_from_sk)) {
+            printf("valid signature (orlp sign from converted key)\n");
+        } else {
+            printf("invalid signature (orlp sign from converted key)\n");
+        }
+    } else {
+        printf("failed to convert libsodium secret key to orlp private key\n");
+    }
+
+    /* negative test: flip a bit and expect verification to fail via compat verify */
+    ls_signature[10] ^= 0x01;
+    if (ed25519_verify_libsodium(ls_signature, message, (size_t)message_len, ls_public_key)) {
+        printf("did not detect signature change (compat)\n");
+    } else {
+        printf("correctly detected signature change (compat)\n");
+    }
+    /* restore byte for subsequent tests */
+    ls_signature[10] ^= 0x01;
 
     /* create scalar and add it to the keypair */
     ed25519_create_seed(scalar);
@@ -82,11 +140,11 @@ int main() {
 
     /* test performance */
     printf("testing seed generation performance: ");
-    start = clock();
+    clock_t start = clock();
     for (i = 0; i < 10000; ++i) {
         ed25519_create_seed(seed);
     }
-    end = clock();
+    clock_t end = clock();
 
     printf("%fus per seed\n", ((double) ((end - start) * 1000)) / CLOCKS_PER_SEC / i * 1000);
 

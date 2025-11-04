@@ -32,7 +32,7 @@ int ed25519_libsodium_to_orlp_secret_key(
 }
 
 int ed25519_orlp_to_libsodium_secret_key(
-    unsigned char *libsodium_secret_key,
+    const unsigned char *libsodium_secret_key,
     const unsigned char *orlp_private_key,
     const unsigned char *public_key)
 {
@@ -79,7 +79,7 @@ int ed25519_create_keypair_libsodium(
 int ed25519_sign_libsodium(
     unsigned char *signature,
     const unsigned char *message,
-    size_t message_len,
+    const size_t message_len,
     const unsigned char *libsodium_secret_key)
 {
     unsigned char orlp_private_key[64];
@@ -88,6 +88,10 @@ int ed25519_sign_libsodium(
     const unsigned char *public_key = libsodium_secret_key + ED25519_LIBSODIUM_SEED_LEN;
 
     if (!signature || !message || !libsodium_secret_key) {
+        return ED25519_LIBSODIUM_ERR_INVALID_ARG;
+    }
+
+    if (message_len == 0) {
         return ED25519_LIBSODIUM_ERR_INVALID_ARG;
     }
 
@@ -103,7 +107,7 @@ int ed25519_sign_libsodium(
 int ed25519_verify_libsodium(
     const unsigned char *signature,
     const unsigned char *message,
-    size_t message_len,
+    const size_t message_len,
     const unsigned char *public_key)
 {
     /* Direct wrapper - verification is same in both libraries */

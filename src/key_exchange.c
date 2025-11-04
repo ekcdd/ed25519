@@ -3,8 +3,7 @@
 
 void ed25519_key_exchange(unsigned char *shared_secret, const unsigned char *public_key, const unsigned char *private_key) {
     unsigned char e[32];
-    unsigned int i;
-    
+
     fe x1;
     fe x2;
     fe z2;
@@ -13,12 +12,8 @@ void ed25519_key_exchange(unsigned char *shared_secret, const unsigned char *pub
     fe tmp0;
     fe tmp1;
 
-    int pos;
-    unsigned int swap;
-    unsigned int b;
-
     /* copy the private key and make sure it's valid */
-    for (i = 0; i < 32; ++i) {
+    for (unsigned int i = 0; i < 32; ++i) {
         e[i] = private_key[i];
     }
 
@@ -40,9 +35,9 @@ void ed25519_key_exchange(unsigned char *shared_secret, const unsigned char *pub
     fe_copy(x3, x1);
     fe_1(z3);
 
-    swap = 0;
-    for (pos = 254; pos >= 0; --pos) {
-        b = e[pos / 8] >> (pos & 7);
+    unsigned int swap = 0;
+    for (int pos = 254; pos >= 0; --pos) {
+        unsigned int b = e[pos / 8] >> (pos & 7);
         b &= 1;
         swap ^= b;
         fe_cswap(x2, x3, swap);

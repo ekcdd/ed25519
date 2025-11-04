@@ -4,10 +4,8 @@
 #include "sc.h"
 
 static int consttime_equal(const unsigned char *x, const unsigned char *y) {
-    unsigned char r = 0;
-
-    r = x[0] ^ y[0];
-    #define F(i) r |= x[i] ^ y[i]
+    unsigned char r = x[0] ^ y[0];
+    #define F(i) (r |= x[i] ^ y[i])
     F(1);
     F(2);
     F(3);
