@@ -1,0 +1,45 @@
+# Ignore CMake build directories
+cmake-build-*/
+
+# Ignore CMake-generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+install_manifest.txt
+compile_commands.json
+Testing/
+CTestTestfile.cmake
+
+# Ignore build artifacts
+*.o
+*.obj
+*.lo
+*.la
+*.al
+*.out
+*.exe
+*.dll
+*.so
+*.so.*
+*.dylib
+*.a
+*.lib
+*.exp
+*.pdb
+
+# Ignore backup and temporary files
+*~
+*.swp
+*.tmp
+*.bak
+
+# Ignore logs
+*.log
+
+# Ignore IDE/project files
+.vscode/
+.idea/
+*.user
+*.sln
+*.vcxproj*
