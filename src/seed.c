@@ -11,18 +11,12 @@
 
 int ed25519_create_seed(unsigned char *seed) {
 #ifdef _WIN32
-    HCRYPTPROV prov;
-
-    if (!CryptAcquireContext(&prov, NULL, NULL, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT))  {
+    const NTSTATUS status = BCryptGenRandom (NULL, seed, 32, BCRYPT_USE_SYSTEM_PREFERRED_RNG); // Flags
+    if (status != 0x00000000) // STATUS_SUCCESS
+    {
         return 1;
     }
-
-    if (!CryptGenRandom(prov, 32, seed))  {
-        CryptReleaseContext(prov, 0);
-        return 1;
-    }
-
-    CryptReleaseContext(prov, 0);
+    return 0;
 #else
     FILE *f = fopen("/dev/urandom", "rb");
 
@@ -30,7 +24,8 @@ int ed25519_create_seed(unsigned char *seed) {
         return 1;
     }
 
-    fread(seed, 1, 32, f);
+    const size_t size = fread(seed, 1, 32, f);
+    (void)size; // hack: make the compiler think that size is used.
     fclose(f);
 #endif
 
