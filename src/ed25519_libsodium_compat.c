@@ -114,4 +114,20 @@ int ed25519_verify_libsodium(
     return ed25519_verify(signature, message, message_len, public_key);
 }
 
+int ed25519_public_key_from_libsodium_secret(
+    unsigned char *public_key,
+    const unsigned char *libsodium_secret_key)
+{
+    if (!public_key || !libsodium_secret_key) {
+        return ED25519_LIBSODIUM_ERR_INVALID_ARG;
+    }
+
+    /* libsodium format: secret_key = seed(32) || public_key(32) */
+    memcpy(public_key,
+           libsodium_secret_key + ED25519_LIBSODIUM_SEED_LEN,
+           ED25519_LIBSODIUM_PUBLIC_KEY_LEN);
+
+    return ED25519_LIBSODIUM_OK;
+}
+
 #endif /* ED25519_LIBSODIUM_COMPAT_IMPL */

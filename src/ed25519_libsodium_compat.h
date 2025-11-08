@@ -108,6 +108,18 @@ int ED25519_DECLSPEC ed25519_verify_libsodium(
     size_t message_len,
     const unsigned char *public_key);
 
+/*
+ * Extract the public key from a libsodium-format secret key.
+ *
+ * libsodium_secret_key: 64 bytes (seed || public_key)
+ * public_key: 32 bytes (output)
+ *
+ * Returns ED25519_LIBSODIUM_OK (0) on success, negative on error.
+ */
+int ED25519_DECLSPEC ed25519_public_key_from_libsodium_secret(
+    unsigned char *public_key,
+    const unsigned char *libsodium_secret_key);
+
 #ifdef __cplusplus
 }
 #endif
