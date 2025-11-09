@@ -21,7 +21,7 @@ All code is ANSI C with no third‑party dependencies for core Ed25519 operation
 Here's a minimal example using the libsodium‑compatible API:
 
 ```c
-#include "ed25519/ed25519.h"
+#include <ed25519/ed25519.h>
 
 unsigned char pk[32], sk[64];
 unsigned char message[] = "Hello, World!";
@@ -119,7 +119,7 @@ Choose one API based on your needs:
 
 ### Libsodium-Compatible API (Recommended for most users)
 
-Include `ed25519/ed25519_libsodium_compat.h` (or the convenience umbrella header `ed25519.h`). This wrapper lets you use libsodium's key layout and naming while calling into the embedded orlp implementation.
+Include `ed25519/compat.h` (or the convenience umbrella header `ed25519.h`). This wrapper lets you use libsodium's key layout and naming while calling into the embedded orlp implementation.
 
 **Constants:**
 

@@ -1,7 +1,7 @@
 #include <string.h>
 
-#include "ed25519_libsodium_compat.h"
-#include "ed25519.h"
+#include <ed25519/compat.h>
+#include <ed25519/ed25519.h>
 
 #ifdef ED25519_LIBSODIUM_COMPAT_IMPL
 

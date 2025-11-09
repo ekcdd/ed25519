@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PRECOM_DATA_H
+#define PRECOM_DATA_H
 
 static const ge_precomp Bi[8] = {
     {
@@ -1391,3 +1392,5 @@ static const ge_precomp base[32][8] = {
         },
     },
 };
+
+#endif

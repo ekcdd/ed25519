@@ -43,7 +43,7 @@ set(ED25519_SOURCES
         src/ge.c
         src/fe.c
         src/sc.c
-        src/ed25519_libsodium_compat.c
+        src/compat.c
 )
 
 # ==== Library Target ====
@@ -61,6 +61,7 @@ set_target_properties(ed25519 PROPERTIES POSITION_INDEPENDENT_CODE ON)
 target_include_directories(ed25519 PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 target_compile_definitions(ed25519 PUBLIC ED25519_LIBSODIUM_COMPAT_IMPL)
 
@@ -84,7 +85,7 @@ endif()
 # ==== sodiumtest (optional) ====
 if(SODIUM_AVAILABLE AND NOT ED25519_NO_SEED)
     add_executable(sodiumtest tests/sodiumtest.c)
-    target_include_directories(sodiumtest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/src)
+    target_include_directories(sodiumtest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/include)
     if(SODIUM_FOUND)
         target_link_libraries(sodiumtest PRIVATE ed25519 ${SODIUM_LIBRARIES})
         target_include_directories(sodiumtest PRIVATE ${SODIUM_INCLUDE_DIRS})
@@ -102,7 +103,7 @@ endif()
 if(NOT ED25519_NO_SEED)
     add_executable(ed25519_bench tests/test.c)
     target_link_libraries(ed25519_bench PRIVATE ed25519)
-    target_include_directories(ed25519_bench PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/src)
+    target_include_directories(ed25519_bench PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/include)
 else()
     message(STATUS "Skipping 'ed25519_bench' because ED25519_NO_SEED is ON.")
 endif()

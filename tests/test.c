@@ -3,8 +3,8 @@
 #include <string.h>
 #include <time.h>
 
-#include "ed25519.h"
-#include "ed25519_libsodium_compat.h"
+#include <ed25519/ed25519.h>
+#include <ed25519/compat.h>
 
 
 int main() {

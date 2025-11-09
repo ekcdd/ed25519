@@ -1,5 +1,7 @@
-#include "fixedint.h"
+#include <stdint.h>
+
 #include "fe.h"
+
 
 
 /*

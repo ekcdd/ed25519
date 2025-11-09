@@ -1,7 +1,6 @@
 #ifndef FE_H
 #define FE_H
 
-#include "fixedint.h"
 
 
 /*
@@ -12,6 +11,7 @@
     Bounds on each t[i] vary depending on context.
 */
 
+#include <stdint.h>
 
 typedef int32_t fe[10];
 
